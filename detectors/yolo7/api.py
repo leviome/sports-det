@@ -9,10 +9,10 @@ from utils.torch_utils import select_device, load_classifier, time_synchronized,
 from utils.datasets import preprocess
 
 class Yolo7:
-    def __init__(self, weights='./yolo7/checkpoints/yolov7-e6e.pt', device='cuda:2', trace=True):
+    def __init__(self, ckpt='./yolo7/checkpoints/yolov7-e6e.pt', device='cuda:2', trace=True):
         self.device = device
         self.img_size = 640
-        self.model = attempt_load(weights, map_location=device)
+        self.model = attempt_load(ckpt, map_location=device)
         if trace:
             self.model = TracedModel(self.model, device, self.img_size) # img size is 640
         self.model.half()
