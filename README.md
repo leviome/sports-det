@@ -14,3 +14,12 @@ detectors &amp; trackers for sports
 ├── trackers
 └── ZeroShot
 ```
+
+## tennis det
+
+<div align="center">
+    <a href="./">
+        <img src="./imgs/tennis_demo.jpg" width="79%"/>
+    </a>
+</div>
+
