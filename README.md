@@ -12,7 +12,8 @@ detectors &amp; trackers for sports
 ├── detectors
 ├── segs
 ├── trackers
-└── ZeroShot
+├── ZeroShot
+└── ...
 ```
 
 ## tennis det
@@ -23,3 +24,10 @@ detectors &amp; trackers for sports
     </a>
 </div>
 
+## Multi-view basketball det
+
+<div align="center">
+    <a href="./">
+        <img src="./imgs/frame_0017.jpg" width="85%"/>
+    </a>
+</div>
