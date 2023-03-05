@@ -32,42 +32,12 @@ class Yolo7:
             det[:, [1, 3]] += offset[1]
         return det
 
-    def patch_det(self, img, cls_ids=None, patch_num=4, overlap=20):
-        # res_global = self.detect(img, cls_ids=[0])
-        res_global = self.detect(img, cls_ids=cls_ids)
-
-        edge_num = sqrt(patch_num)
-        h, w, _ = img.shape
-        patch_arrays = []
-        patch0 = [0, 0, int(w // edge_num + overlap), int(h // edge_num + overlap)]
-        patch1 = [int(w // edge_num - overlap), 0, w, int(h // edge_num + overlap)]
-        patch2 = [0, int(h // edge_num - overlap), int(w // edge_num + overlap), h]
-        patch3 = [int(w // edge_num - overlap), int(h // edge_num - overlap), w, h]
-        # cv2.rectangle(img, tuple(patch0[0:2]), tuple(patch0[2:4]), (255, 0, 0), 2)
-        # cv2.rectangle(img, tuple(patch1[0:2]), tuple(patch1[2:4]), (255, 255, 0), 2)
-        # cv2.rectangle(img, tuple(patch2[0:2]), tuple(patch2[2:4]), (255, 0, 255), 2)
-        # cv2.rectangle(img, tuple(patch3[0:2]), tuple(patch3[2:4]), (0, 255, 255), 2)
-        # cv2.imwrite('gg.png', img)
-        p0 = img[patch0[1]:patch0[3], patch0[0]:patch0[2], :]
-        p1 = img[patch1[1]:patch1[3], patch1[0]:patch1[2], :]
-        p2 = img[patch2[1]:patch2[3], patch2[0]:patch2[2], :]
-        p3 = img[patch3[1]:patch3[3], patch3[0]:patch3[2], :]
-        res0 = self.detect(p0, cls_ids=cls_ids)
-        res1 = self.detect(p1, cls_ids=cls_ids, offset=[patch1[0], patch1[1]])
-        res2 = self.detect(p2, cls_ids=cls_ids, offset=[patch2[0], patch2[1]])
-        res3 = self.detect(p3, cls_ids=cls_ids, offset=[patch3[0], patch3[1]])
-        det_list = [res_global, res0, res1, res2, res3]
-        resa = []
-        for det in det_list:
-            if len(det) != 0:
-                resa.append(det)
-        return torch.cat(resa) if len(resa) != 0 else resa
-
     def random_patch_det(self, img, cls_ids=None, row=2, col=2, overlap=20):
         res_global = [] # self.detect(img, cls_ids=cls_ids)
         height, width, _ = img.shape
         h_edge = height // row
         w_edge = width // col
+        assert h_edge >= self.img_size and w_edge >= self.img_size
         # print(h_edge, w_edge)
         margin = overlap // 2
 
