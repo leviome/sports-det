@@ -10,6 +10,7 @@ color_list = []
 for i in range(len(COCO_classes)):
     color_list.append((int(128 * random()), int(128 * random()), int(255 * random())))
 color_list[32] = (0, 255, 0)
+color_list[0] = (255, 0, 125)
 
 
 def plot_boxes(img, boxes):
@@ -23,6 +24,13 @@ def plot_boxes(img, boxes):
 
         caption = '%s %s' % (cls, deci(prob, precision=2))
         cv2.putText(img, caption, (x1, y1 - 5), font, fontScale, color, 1, cv2.LINE_AA)
+    return img
+
+
+def plain_plot(img, box):
+    x1, y1, x2, y2 = box
+    x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
+    cv2.rectangle(img, (x1, y1), (x2, y2), (0, 0, 255), 5)
     return img
 
 
@@ -45,7 +53,7 @@ def plot_box_in_tile(img, box, vid=0):
     y1 = max(108, y1)
     y1 = min(1080 - 108, y1)
     x1 = max(160, x1)
-    x1 = min(1920-160, x1)
+    x1 = min(1920 - 160, x1)
     img = img[y1 - 108:y1 + 108, x1 - 160:x1 + 160, :]
     view = 'view_%02d' % vid
     cv2.putText(img, view, (8, 12), font, fontScale, (255, 255, 0), 1, cv2.LINE_AA)
