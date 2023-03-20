@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
         frame = plot_boxes(frame, res)
         frame = plot_boxes(frame, player)
-        frame = plain_plot(frame, window)
+        # frame = plain_plot(frame, window)
         writer.write(frame)
 
         # cv2.imshow('0', frame)
@@ -56,4 +56,4 @@ if __name__ == '__main__':
 
     reader.release()
     writer.release()
-    cv2.destroyAllWindows()
+    # cv2.destroyAllWindows()
